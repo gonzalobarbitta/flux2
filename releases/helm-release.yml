@@ -1,0 +1,10 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: helm-operator
+spec:
+  chart:
+    git: https://github.com/gonzalobarbitta/helm-operator
+    ref: master
+    path: charts/helm-operator
