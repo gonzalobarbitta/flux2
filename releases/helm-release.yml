@@ -1,10 +1,15 @@
 ---
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: helm-operator
 spec:
+  interval: 1m
   chart:
-    git: https://github.com/gonzalobarbitta/helm-operator
-    ref: master
-    path: charts/helm-operator
+    spec:
+      chart: .charts/helm-operator
+      sourceRef:
+        kind: GitRepository
+        name: helm-operator
+        namespace: default
+      interval: 1m
