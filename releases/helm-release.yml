@@ -7,7 +7,7 @@ spec:
   interval: 1m
   chart:
     spec:
-      chart: .charts/helm-operator
+      chart: ./charts/helm-operator
       sourceRef:
         kind: GitRepository
         name: helm-operator
