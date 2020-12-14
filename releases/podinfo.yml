@@ -9,7 +9,7 @@ spec:
   targetNamespace: podinfo-git
   chart:
     spec:
-      chart: ./charts/podinfo
+      chart: ./charts/helm-operator
       sourceRef:
         kind: GitRepository
         name: podinfo
