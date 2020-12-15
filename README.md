@@ -35,12 +35,27 @@ flux create source git echo \
 Then, we create a `kustomization` for synchronizing the manifests on the cluster.
 
 ```
+---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
   name: echo
 spec:
   interval: 1m
+  path: ./namespaces
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: echo
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: echo-releases
+spec:
+  interval: 1m
+  dependsOn:
+    - name: echo-namespaces
   path: ./releases
   prune: true
   sourceRef:
@@ -51,13 +66,24 @@ spec:
 Or, using `fluxctl`
 
 ```
-flux create kustomization echo \
+flux create kustomization echo-namespaces \
+  --source=echo \
+  --path="./namespaces" \
+  --prune=true \
+  --validation=client \
+  --interval=1m \
+  --export > ./kustomization-namespaces.yaml
+```
+
+```
+flux create kustomization echo-releases \
   --source=echo \
   --path="./releases" \
   --prune=true \
   --validation=client \
   --interval=1m \
-  --export > ./kustomization.yaml
+  --depends-on=echo-namespaces \
+  --export > ./kustomization-releases.yaml
 ```
 
 ### Helm Release

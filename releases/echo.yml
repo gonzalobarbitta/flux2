@@ -11,7 +11,7 @@ spec:
       chart: ./charts/echo
       sourceRef:
         kind: GitRepository
-        name: echo
+        name: flux-system
         namespace: flux-system
       interval: 1m
       
