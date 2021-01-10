@@ -12,6 +12,6 @@ spec:
       sourceRef:
         kind: GitRepository
         name: flux-system
-        namespace: flux-system
+        namespace: echo
       interval: 1m
       
